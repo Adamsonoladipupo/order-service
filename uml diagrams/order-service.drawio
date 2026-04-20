@@ -1,0 +1,362 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3" pages="2">
+  <diagram name="Class Diagram" id="class-diagram">
+    <mxGraphModel dx="1844" dy="1125" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="auth_title" value="«Middleware»&#xa;AuthMiddleware" style="text;html=1;strokeColor=#F59E0B;fillColor=#451A03;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#F59E0B;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_methods" value="+ doFilterInternal(req, res, chain): void" style="text;html=1;strokeColor=#F59E0B;fillColor=#1C1917;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="90" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="idempotency_title" value="«Middleware»&#xa;IdempotencyMiddleware" style="text;html=1;strokeColor=#F59E0B;fillColor=#451A03;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#F59E0B;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="40" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="idempotency_fields" value="- orderRepository: OrderRepository" style="text;html=1;strokeColor=#F59E0B;fillColor=#1C1917;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="280" y="90" width="220" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="idempotency_methods" value="+ doFilterInternal(req, res, chain): void" style="text;html=1;strokeColor=#F59E0B;fillColor=#1C1917;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="280" y="115" width="220" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="handler_title" value="«Controller»&#xa;OrderHandler" style="text;html=1;strokeColor=#3B82F6;fillColor=#1E3A5F;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#3B82F6;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="560" y="40" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="handler_fields" value="- orderService: OrderService" style="text;html=1;strokeColor=#3B82F6;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="560" y="90" width="260" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="handler_methods" value="+ placeOrder(request, userId): ResponseEntity&#xa;+ listOrders(userId): ResponseEntity&#xa;+ getOrder(id, userId): ResponseEntity&#xa;+ getOrderStatus(id): ResponseEntity&#xa;+ cancelOrder(id, userId): ResponseEntity&#xa;+ updateOrderStatus(id, status, userId): ResponseEntity" style="text;html=1;strokeColor=#3B82F6;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="560" y="115" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="service_title" value="«Service»&#xa;OrderService" style="text;html=1;strokeColor=#8B5CF6;fillColor=#2E1065;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#8B5CF6;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="560" y="280" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="service_fields" value="- orderRepository: OrderRepository&#xa;- inventoryClient: InventoryClient&#xa;- walletClient: WalletClient&#xa;- kafkaProducer: KafkaProducer&#xa;- stateValidator: OrderStateValidator" style="text;html=1;strokeColor=#8B5CF6;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="560" y="330" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="service_methods" value="+ placeOrder(userId, request): Order&#xa;+ cancelOrder(orderId, userId, role): Order&#xa;+ handlePaymentCompleted(orderId): void&#xa;+ handlePaymentFailed(orderId): void&#xa;+ getOrder(orderId, userId): Order&#xa;+ listOrders(userId): List&lt;Order&gt;" style="text;html=1;strokeColor=#8B5CF6;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="560" y="420" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="validator_title" value="«Component»&#xa;OrderStateValidator" style="text;html=1;strokeColor=#EC4899;fillColor=#500724;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#EC4899;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="860" y="280" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="validator_fields" value="- VALID_TRANSITIONS: Set&lt;String&gt;" style="text;html=1;strokeColor=#EC4899;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="860" y="330" width="240" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="validator_methods" value="+ validate(current, target): void&#xa;+ isAdminOnly(current, target): boolean" style="text;html=1;strokeColor=#EC4899;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="860" y="355" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="repo_title" value="«Repository»&#xa;OrderRepository" style="text;html=1;strokeColor=#06B6D4;fillColor=#083344;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#06B6D4;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="560" y="580" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="repo_methods" value="+ findByBuyerId(buyerId): List&lt;Order&gt;&#xa;+ findBySellerId(sellerId): List&lt;Order&gt;&#xa;+ findByIdempotencyKey(key): Optional&lt;Order&gt;&#xa;+ save(order): Order&#xa;+ findById(id): Optional&lt;Order&gt;" style="text;html=1;strokeColor=#06B6D4;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="560" y="630" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="order_title" value="«Entity»&#xa;Order" style="text;html=1;strokeColor=#10B981;fillColor=#064E3B;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#10B981;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="560" y="780" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="order_fields" value="- id: UUID&#xa;- buyerId: UUID&#xa;- status: OrderStatus&#xa;- totalAmount: Long&#xa;- currency: String&#xa;- paymentMethod: String&#xa;- shippingAddress: JSONB&#xa;- items: List&lt;OrderItem&gt;&#xa;- idempotencyKey: String&#xa;- cancelledAt: Timestamp&#xa;- cancelReason: String&#xa;- createdAt: Timestamp&#xa;- updatedAt: Timestamp" style="text;html=1;strokeColor=#10B981;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="560" y="830" width="260" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="item_title" value="«Entity»&#xa;OrderItem" style="text;html=1;strokeColor=#10B981;fillColor=#064E3B;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#10B981;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="860" y="780" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="item_fields" value="- id: UUID&#xa;- orderId: UUID&#xa;- productId: UUID&#xa;- qty: int&#xa;- unitPrice: Long" style="text;html=1;strokeColor=#10B981;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="860" y="830" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="status_title" value="«Enum»&#xa;OrderStatus" style="text;html=1;strokeColor=#F59E0B;fillColor=#451A03;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#F59E0B;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="780" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="status_fields" value="PENDING&#xa;RESERVED&#xa;CONFIRMED&#xa;CANCELLED&#xa;FAILED" style="text;html=1;strokeColor=#F59E0B;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="280" y="830" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_title" value="«HTTP Client»&#xa;InventoryClient" style="text;html=1;strokeColor=#F43F5E;fillColor=#4C0519;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#F43F5E;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="280" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_fields" value="- restTemplate: RestTemplate&#xa;- baseUrl: String" style="text;html=1;strokeColor=#F43F5E;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="330" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_methods" value="+ reserve(items): boolean&#xa;+ release(items): void" style="text;html=1;strokeColor=#F43F5E;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="370" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wallet_title" value="«HTTP Client»&#xa;WalletClient" style="text;html=1;strokeColor=#F43F5E;fillColor=#4C0519;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#F43F5E;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="460" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="wallet_fields" value="- restTemplate: RestTemplate&#xa;- baseUrl: String" style="text;html=1;strokeColor=#F43F5E;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="510" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wallet_methods" value="+ deduct(buyerId, amount): boolean" style="text;html=1;strokeColor=#F43F5E;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="550" width="220" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="producer_title" value="«Kafka»&#xa;KafkaProducer" style="text;html=1;strokeColor=#EF4444;fillColor=#450A0A;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#EF4444;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="580" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="producer_fields" value="- kafkaTemplate: KafkaTemplate" style="text;html=1;strokeColor=#EF4444;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="630" width="220" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="producer_methods" value="+ publishOrderPlaced(order): void&#xa;+ publishOrderConfirmed(order): void&#xa;+ publishOrderCancelled(order): void" style="text;html=1;strokeColor=#EF4444;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="655" width="220" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="consumer_title" value="«Kafka»&#xa;KafkaConsumer" style="text;html=1;strokeColor=#EF4444;fillColor=#450A0A;align=center;verticalAlign=middle;spacingTop=-2;fontSize=13;fontStyle=1;fontColor=#EF4444;rounded=1;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="760" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="consumer_fields" value="- orderService: OrderService" style="text;html=1;strokeColor=#EF4444;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#94A3B8;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="810" width="220" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="consumer_methods" value="+ onPaymentCompleted(event): void&#xa;+ onPaymentFailed(event): void" style="text;html=1;strokeColor=#EF4444;fillColor=#0F172A;align=left;verticalAlign=top;spacingLeft=8;fontSize=11;fontColor=#D1D5DB;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1140" y="835" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#3B82F6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;endArrow=open;endFill=0;" parent="1" source="handler_title" target="service_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1_label" value="depends on" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e1" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#8B5CF6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;endArrow=open;endFill=0;" parent="1" source="service_title" target="repo_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_label" value="depends on" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e2" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#06B6D4;exitX=0.5;exitY=1;entryX=0.5;entryY=0;endArrow=open;endFill=0;" parent="1" source="repo_title" target="order_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#EC4899;exitX=1;exitY=0.5;entryX=0;entryY=0.5;endArrow=open;endFill=0;" parent="1" source="service_title" target="validator_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_label" value="depends on" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e4" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#F43F5E;exitX=1;exitY=0.3;entryX=0;entryY=0.5;endArrow=open;endFill=0;" parent="1" source="service_title" target="inv_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5_label" value="HTTP call" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e5" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#F43F5E;exitX=1;exitY=0.6;entryX=0;entryY=0.5;endArrow=open;endFill=0;" parent="1" source="service_title" target="wallet_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6_label" value="HTTP call" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e6" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#EF4444;exitX=1;exitY=0.9;entryX=0;entryY=0.5;endArrow=open;endFill=0;" parent="1" source="service_title" target="producer_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7_label" value="publishes" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e7" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#EF4444;exitX=0;exitY=0.5;entryX=1;entryY=0.9;endArrow=open;endFill=0;dashed=1;" parent="1" source="consumer_title" target="service_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8_label" value="triggers" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e8" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#10B981;exitX=1;exitY=0.5;entryX=0;entryY=0.5;endArrow=ERmany;endFill=1;" parent="1" source="order_title" target="item_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9_label" value="has many" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e9" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#F59E0B;exitX=0;exitY=0.5;entryX=1;entryY=0.5;endArrow=open;endFill=0;" parent="1" source="order_title" target="status_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10_label" value="has type" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e10" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#F59E0B;exitX=0.5;exitY=1;entryX=0;entryY=0.5;endArrow=open;endFill=0;dashed=1;" parent="1" source="idempotency_title" target="repo_title" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11_label" value="checks key" style="edgeLabel;fontSize=9;fontColor=#64748B;" parent="e11" vertex="1" connectable="0">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Activity Flow - placeOrder" id="activity-diagram">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- START -->
+        <mxCell id="start" value="" style="ellipse;aspect=fixed;fillColor=#10B981;strokeColor=#10B981;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="30" height="30" as="geometry" />
+        </mxCell>
+        <!-- POST /orders received -->
+        <mxCell id="a0" value="POST /orders received" style="rounded=1;fillColor=#1E293B;strokeColor=#475569;fontColor=#E2E8F0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="100" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_start_a0" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#475569;" edge="1" source="start" target="a0" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- AuthMiddleware -->
+        <mxCell id="a1" value="AuthMiddleware&#xa;Extract userId from X-User-Id header" style="rounded=1;fillColor=#451A03;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="180" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e0_1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#475569;" edge="1" source="a0" target="a1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Auth Decision -->
+        <mxCell id="d1" value="userId present?" style="rhombus;fillColor=#451A03;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="265" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e1_d1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#F59E0B;" edge="1" source="a1" target="d1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- 401 -->
+        <mxCell id="r401" value="401 Unauthorized" style="rounded=1;fillColor=#450A0A;strokeColor=#EF4444;fontColor=#EF4444;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="275" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d1_401" style="strokeColor=#EF4444;" edge="1" source="d1" target="r401" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d1_401_label" value="No" style="edgeLabel;fontSize=10;fontColor=#EF4444;" vertex="1" connectable="0" parent="e_d1_401">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <!-- IdempotencyMiddleware -->
+        <mxCell id="a2" value="IdempotencyMiddleware&#xa;Check X-Idempotency-Key in DB" style="rounded=1;fillColor=#451A03;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="360" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d1_a2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#10B981;" edge="1" source="d1" target="a2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d1_a2_label" value="Yes" style="edgeLabel;fontSize=10;fontColor=#10B981;" vertex="1" connectable="0" parent="e_d1_a2">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <!-- Idempotency Decision -->
+        <mxCell id="d2" value="Key exists?" style="rhombus;fillColor=#451A03;strokeColor=#F59E0B;fontColor=#F59E0B;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="445" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e2_d2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#F59E0B;" edge="1" source="a2" target="d2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Return cached -->
+        <mxCell id="r200" value="200 — Return cached order" style="rounded=1;fillColor=#083344;strokeColor=#06B6D4;fontColor=#06B6D4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="455" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d2_200" style="strokeColor=#06B6D4;" edge="1" source="d2" target="r200" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d2_200_label" value="Yes" style="edgeLabel;fontSize=10;fontColor=#06B6D4;" vertex="1" connectable="0" parent="e_d2_200">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <!-- Handler -->
+        <mxCell id="a3" value="OrderHandler&#xa;Deserialize body + extract userId" style="rounded=1;fillColor=#1E3A5F;strokeColor=#3B82F6;fontColor=#3B82F6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="540" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d2_a3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#10B981;" edge="1" source="d2" target="a3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d2_a3_label" value="No" style="edgeLabel;fontSize=10;fontColor=#10B981;" vertex="1" connectable="0" parent="e_d2_a3">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <!-- Create Order PENDING -->
+        <mxCell id="a4" value="OrderService&#xa;Create Order → status = PENDING → save to DB" style="rounded=1;fillColor=#2E1065;strokeColor=#8B5CF6;fontColor=#8B5CF6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="625" width="210" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="e3_a4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#3B82F6;" edge="1" source="a3" target="a4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- InventoryClient -->
+        <mxCell id="a5" value="InventoryClient&#xa;HTTP POST → reserve stock" style="rounded=1;fillColor=#4C0519;strokeColor=#F43F5E;fontColor=#F43F5E;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="715" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e4_a5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#8B5CF6;" edge="1" source="a4" target="a5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Inventory Decision -->
+        <mxCell id="d3" value="Stock available?" style="rhombus;fillColor=#4C0519;strokeColor=#F43F5E;fontColor=#F43F5E;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="800" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e5_d3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#F43F5E;" edge="1" source="a5" target="d3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- 409 stock -->
+        <mxCell id="r409" value="Set FAILED → save → 409 INSUFFICIENT_STOCK" style="rounded=1;fillColor=#450A0A;strokeColor=#EF4444;fontColor=#EF4444;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="810" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d3_409" style="strokeColor=#EF4444;" edge="1" source="d3" target="r409" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d3_409_label" value="No" style="edgeLabel;fontSize=10;fontColor=#EF4444;" vertex="1" connectable="0" parent="e_d3_409">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <!-- PENDING → RESERVED -->
+        <mxCell id="a6" value="OrderService&#xa;PENDING → RESERVED → save to DB" style="rounded=1;fillColor=#2E1065;strokeColor=#8B5CF6;fontColor=#8B5CF6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="900" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d3_a6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#10B981;" edge="1" source="d3" target="a6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d3_a6_label" value="Yes" style="edgeLabel;fontSize=10;fontColor=#10B981;" vertex="1" connectable="0" parent="e_d3_a6">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <!-- Kafka ORDER_PLACED -->
+        <mxCell id="a7" value="KafkaProducer&#xa;Publish ORDER_PLACED event" style="rounded=1;fillColor=#450A0A;strokeColor=#EF4444;fontColor=#EF4444;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="985" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e6_a7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#8B5CF6;" edge="1" source="a6" target="a7" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- WalletClient -->
+        <mxCell id="a8" value="WalletClient&#xa;HTTP POST → initiate payment" style="rounded=1;fillColor=#4C0519;strokeColor=#F43F5E;fontColor=#F43F5E;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1070" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e7_a8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#EF4444;" edge="1" source="a7" target="a8" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Return 201 -->
+        <mxCell id="r201" value="Return 201 Created — Order in RESERVED state" style="rounded=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#10B981;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1155" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e8_r201" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#F43F5E;" edge="1" source="a8" target="r201" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- BACKGROUND KAFKA SECTION -->
+        <mxCell id="bg_label" value="— Background: Kafka Consumer listening —" style="text;fontSize=11;fontColor=#475569;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1230" width="350" height="30" as="geometry" />
+        </mxCell>
+        <!-- KafkaConsumer receives event -->
+        <mxCell id="a9" value="KafkaConsumer&#xa;Receive PAYMENT_COMPLETED or PAYMENT_FAILED" style="rounded=1;fillColor=#450A0A;strokeColor=#EF4444;fontColor=#EF4444;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1290" width="210" height="55" as="geometry" />
+        </mxCell>
+        <!-- Payment Decision -->
+        <mxCell id="d4" value="COMPLETED&#xa;or FAILED?" style="rhombus;fillColor=#450A0A;strokeColor=#EF4444;fontColor=#EF4444;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="1380" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e9_d4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#EF4444;" edge="1" source="a9" target="d4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- CONFIRMED -->
+        <mxCell id="a10" value="OrderService&#xa;RESERVED → CONFIRMED&#xa;save → publish ORDER_CONFIRMED" style="rounded=1;fillColor=#064E3B;strokeColor=#10B981;fontColor=#10B981;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1490" width="210" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d4_a10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#10B981;" edge="1" source="d4" target="a10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d4_a10_label" value="COMPLETED" style="edgeLabel;fontSize=10;fontColor=#10B981;" vertex="1" connectable="0" parent="e_d4_a10">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <!-- FAILED -->
+        <mxCell id="a11" value="OrderService&#xa;RESERVED → FAILED&#xa;release inventory" style="rounded=1;fillColor=#450A0A;strokeColor=#EF4444;fontColor=#EF4444;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1490" width="210" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d4_a11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#EF4444;" edge="1" source="d4" target="a11" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_d4_a11_label" value="FAILED" style="edgeLabel;fontSize=10;fontColor=#EF4444;" vertex="1" connectable="0" parent="e_d4_a11">
+          <mxGeometry relative="0.5" as="geometry" />
+        </mxCell>
+        <!-- END -->
+        <mxCell id="end" value="" style="ellipse;aspect=fixed;fillColor=#EF4444;strokeColor=#7F1D1D;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1600" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e_a10_end" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#475569;" edge="1" source="a10" target="end" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_a11_end" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#475569;" edge="1" source="a11" target="end" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
