@@ -1,4 +1,4 @@
-package com.order_service.order_service.data.models;
+package com.order_service.order_service.dtos.responses;
 
 import com.order_service.order_service.dtos.requests.ShippingAddressDto;
 import lombok.AllArgsConstructor;
@@ -14,20 +14,13 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
-    private UUID id;
-    private UUID buyerId;
-    private UUID sellerId;
-    private OrderStatus status;
-    private Long totalPrice;
+public class PlaceOrderResponse {
+    private UUID orderId;
+    private String status;
+    private long totalAmount;
     private String currency;
     private String paymentMethod;
+    private List<OrderItemResponse> items;
     private ShippingAddressDto shippingAddress;
-    private List<OrderItem> items;
-    private String idempotencyKey;
-    private LocalDateTime cancelledAt;
-    private String cancelReason;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
 }
