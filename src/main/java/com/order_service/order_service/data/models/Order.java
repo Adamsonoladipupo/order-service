@@ -29,8 +29,6 @@ public class Order {
     private String paymentMethod;
     private String shippingAddress;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
     private List<OrderItem> items;
     private String idempotencyKey;
     private LocalDateTime cancelledAt;
