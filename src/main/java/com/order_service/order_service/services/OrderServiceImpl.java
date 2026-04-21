@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService{
     public PlaceOrderResponse placeOrder(PlaceOrderRequest request, UUID buyerId){
 
         long totalAmount = request.getItems().stream()
-                .mapToLong(item -> item.getUnitPrice() * item.getQty())
+                .mapToLong(item -> item.getUnitPrice() * item.getQuantity())
                 .sum();
 
         Order order = new Order();
