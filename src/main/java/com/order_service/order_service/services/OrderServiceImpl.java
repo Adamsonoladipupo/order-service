@@ -2,6 +2,7 @@ package com.order_service.order_service.services;
 
 import com.order_service.order_service.data.models.Order;
 import com.order_service.order_service.data.models.OrderStatus;
+import com.order_service.order_service.data.models.User;
 import com.order_service.order_service.data.repositories.OrderRepository;
 import com.order_service.order_service.dtos.requests.PlaceOrderRequest;
 import com.order_service.order_service.dtos.responses.PlaceOrderResponse;
@@ -36,7 +37,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order cancelOrder(UUID orderId, UUID userId) {
+    public Order cancelOrder(UUID orderId, UUID userId, User role) {
         return null;
     }
 
