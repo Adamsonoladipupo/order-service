@@ -13,6 +13,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class OrderItemRequest {
     private UUID productId;
-    private int qty;
+    private int quantity;
     private long unitPrice;
 }

@@ -1,92 +1,79 @@
 package com.order_service.order_service.services;
 
-
-
-
 import com.order_service.order_service.data.models.Order;
+import com.order_service.order_service.data.models.OrderItem;
 import com.order_service.order_service.data.models.OrderStatus;
+import com.order_service.order_service.data.models.User;
+import com.order_service.order_service.data.repositories.OrderItemRepository;
 import com.order_service.order_service.data.repositories.OrderRepository;
 import com.order_service.order_service.dtos.requests.PlaceOrderRequest;
-import com.order_service.order_service.dtos.responses.OrderStatusUpdatedResponse;
 import com.order_service.order_service.dtos.responses.PlaceOrderResponse;
-import com.order_service.order_service.exception.OrderNotFoundException;
-import com.order_service.order_service.exception.TimeLapseException;
-import com.order_service.order_service.utils.StateValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    private ModelMapper modelMapper;
 
-    public PlaceOrderResponse placeOrder(PlaceOrderRequest request,
-                                         UUID buyerId,
-                                         String idempotencyKey){
-//        if (idempotencyKey != null) {
-//            Optional<Order> existing = orderRepository.findByIdempotencyKey(idempotencyKey);
-//            if (existing.isPresent()) {
-//                return modelMapper.map(existing, PlaceOrderResponse.class);
-//            }
-//        }
-//
-//        long totalAmount = request.getItems().stream()
-//                .mapToLong(item -> item.getUnitPrice() * item.getQty())
-//                .sum();
-//
+    @Override
+    public PlaceOrderResponse placeOrder(PlaceOrderRequest request, UUID buyerId){
+
+        long totalAmount = request.getItems().stream()
+                .mapToLong(item -> item.getUnitPrice() * item.getQuantity())
+                .sum();
+
         Order order = new Order();
-//        order.setBuyerId(buyerId);
-//        order.setIdempotencyKey(idempotencyKey);
-//        order.setStatus(OrderStatus.RESERVED);
-//        order.setTotalPrice(totalAmount);
-//        modelMapper.map(request, order);
-//        orderRepository.save(order);
+        order.setBuyerId(buyerId);
+        order.setStatus(OrderStatus.RESERVED);
+        order.setTotalPrice(totalAmount);
+        modelMapper.map(request, order);
+        orderRepository.save(order);
+
+        List<OrderItem> items = request.getItems().stream().map(item -> {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrderId(order.getId());
+//            return modelMapper.map(item, orderItem);
+            orderItem.setProductId(item.getProductId());
+            orderItem.setQuantity(item.getQuantity());
+            orderItem.setUnitPrice(item.getUnitPrice());
+            return orderItem;
+        }).toList();
+        orderItemRepository.saveAll(items);
 
         return modelMapper.map(order, PlaceOrderResponse.class);
     }
 
     @Override
-    public OrderStatusUpdatedResponse updateStatus(String status, String role, UUID id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found"));
-        if(role==null||!role.equals("ADMIN")){
-            if (isUserCancel(status, order)){
-                order.setStatus(OrderStatus.CANCELLED);
-                return modelMapper.map(orderRepository.save(order), OrderStatusUpdatedResponse.class);
-            }
-
-            StateValidator.validate(order.getStatus().toString(),status);
-            order.setStatus(OrderStatus.valueOf(status));
-            orderRepository.save(order);
-            return  modelMapper.map(order, OrderStatusUpdatedResponse.class);
-        }
-        StateValidator.isAdminOnly(order.getStatus().toString(),status);
-        order.setStatus(OrderStatus.valueOf(status));
-        orderRepository.save(order);
-        return  modelMapper.map(order, OrderStatusUpdatedResponse.class);
+    public Order cancelOrder(UUID orderId, UUID userId, User role) {
+        return null;
     }
 
-    private boolean isUserCancel(String status, Order order) {
-        if(status.equals("CANCELLED")&& order.getStatus().toString().equals("RESERVED")){
-            if(isGreaterThanOneHour(order)){
-                throw new TimeLapseException("order creation is above 1hr, status can not be cancelled");
-            }
-            StateValidator.validate(order.getStatus().toString(), status);
-            return true;
-        }
-        return false;
+    @Override
+    public void handlePaymentCompleted(UUID orderId) {
+
     }
 
-    private boolean isGreaterThanOneHour(Order order){
-        Duration duration = Duration.between(order.getCreatedAt(),  LocalDateTime.now());
-        return duration.toHours() >= 1;
+    @Override
+    public void handlePaymentFailed(UUID orderId) {
+
+    }
+
+    @Override
+    public Order getOrder(UUID orderId, UUID userId) {
+        return null;
+    }
+
+    @Override
+    public List<Order> listOrders(UUID userId) {
+        return List.of();
     }
 }

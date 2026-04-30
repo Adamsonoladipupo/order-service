@@ -26,8 +26,6 @@ public class Order {
     private String paymentMethod;
     private String shippingAddress;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
     private List<OrderItem> items;
     private String idempotencyKey;
     private LocalDateTime cancelledAt;
