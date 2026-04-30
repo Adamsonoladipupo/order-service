@@ -3,6 +3,7 @@ package com.order_service.order_service.services;
 import com.order_service.order_service.data.models.Order;
 import com.order_service.order_service.data.models.User;
 import com.order_service.order_service.dtos.requests.PlaceOrderRequest;
+import com.order_service.order_service.dtos.responses.OrderStatusUpdatedResponse;
 import com.order_service.order_service.dtos.responses.PlaceOrderResponse;
 
 import java.util.List;
